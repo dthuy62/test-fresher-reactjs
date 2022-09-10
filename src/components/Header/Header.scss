@@ -1,0 +1,72 @@
+.header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  background-color: #b4262c;
+  color: white;
+  &__container {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    padding: 15px 0;
+    &-logo {
+      display: flex;
+      align-items: center;
+      gap: 0 20px;
+      .name-logo {
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+      .text-slogan {
+        color: rgb(171, 163, 163);
+      }
+      .img-logo {
+        width: 23px;
+        height: 23px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #dc143c;
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    &-navbar {
+      .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0 100px;
+        font-weight: 500;
+        .pets-favorite {
+          display: flex;
+          align-items: center;
+          gap: 0 10px;
+          background-color: rgb(230, 207, 211);
+          padding: 7px 7px;
+          border-radius: 10px;
+          color: #dc143c;
+          .heart-icon {
+            width: 20px;
+            height: 20px;
+            display: grid;
+            img {
+              margin: auto;
+              width: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+        .nav {
+          display: flex;
+          gap: 0 40px;
+        }
+      }
+    }
+  }
+}
