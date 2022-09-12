@@ -7,28 +7,33 @@ import "./Login.scss";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
+  console.log(error);
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newUsername = e.target.value;
     setUsername(newUsername);
   };
-  const handleSubmit = async () => {
-    try {
-      const token = await oauthToken()
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-      localStorage.setItem('token', token)
+    try {
+      const token = await oauthToken();
+
+      localStorage.setItem("token", token);
       localStorage.setItem("user", username);
       navigate(RouteList.home);
-    } catch (e) {
+    } catch (err) {
       alert("Oppssss!! An error occurred!");
     }
   };
 
+
   // check logged
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
   if (user) {
-    return <Navigate to={RouteList.home} />
+    return <Navigate to={RouteList.home} />;
   }
 
   return (
@@ -37,22 +42,24 @@ const Login = () => {
       <div className="login-page__container">
         <div className="form-login">
           <div className="form-login__header">
-            <div>Hello! welcome back</div>
-            <div>Sign in to continue</div>
+            <div className="header-title">Hello! welcome back</div>
+            <div className="header-desc">Sign in to continue</div>
           </div>
           <div className="form-login__content">
             <div className="form-login__content-input">
-              <div className="input-label">Username</div>
               <div className="input-field">
+              <label htmlFor="name" className="input-label">Username</label>
                 <input
                   type="text"
                   id="username"
                   name="username"
                   value={username}
-                  placeholder="username"
+                  placeholder="please add your username!"
                   onChange={handleChangeInput}
                 />
+                
               </div>
+              <div>{error}</div>
             </div>
             <div className="btn">
               <button onClick={handleSubmit}>Login</button>

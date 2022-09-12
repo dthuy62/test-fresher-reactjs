@@ -2,23 +2,39 @@ import { apiKey, secretKey } from "../utils/apiKey";
 import axios from 'axios'
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://api.petfinder.com/v2/',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
 })
 
-axiosInstance.interceptors.response.use(async (response) => {
-  const {code} = response.data
+axiosInstance.interceptors.request.use((config) => {
   
+  if (!config?.headers) {
+    throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
+}
+  config.headers.Authorization  = `Bearer ${localStorage.getItem('token')}`;
 
-  if (code === 401 && (localStorage.getItem('isAuthenticated') || 'false') === 'true') {
+  return config
+}, function(error) {
+  return Promise.reject( error);
+})
+
+axiosInstance.interceptors.response.use((response) => {
+
+  return response
+},async (error) => {
+  
+  const originalRequest = error.config;
+  if (error.response.status === 401 && (localStorage.getItem('isAuthenticated') || 'false') === 'true') {
     const data = await oauthToken()
+    localStorage.setItem("token", data);
+
+    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${data}`
+    return axiosInstance(originalRequest)
     
-    localStorage.setItem("token", data.access_token);
-
-    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${data.access_token}`
-
-    return response
   }
-}, console.log)
+  
+})
 
 
 const oauthToken = async () => {
@@ -36,6 +52,7 @@ const oauthToken = async () => {
       }
     );
     const data = await petfinderRes.json();
+    
 
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${data.access_token}`
     localStorage.setItem('isAuthenticated', "true");

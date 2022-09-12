@@ -1,0 +1,32 @@
+.animal-main-page {
+  &__list {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    .header-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      &__text {
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+      &__btn {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+    }
+    &-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 0 30px;
+      cursor: pointer;
+      @media screen and (max-width: 425px) {
+        gap: 0 15px;
+      }
+    }
+  }
+}

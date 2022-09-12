@@ -1,5 +1,5 @@
 export class RouteList {
     static home = '/'
-    static animals = '/animals'
+    static animals = '/animal'
     static login = '/login'
 }

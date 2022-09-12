@@ -1,6 +1,7 @@
 {
   "name": "test-fresher",
-  "proxy": "http://api.petfinder.com",
+  "proxy": "https://api.petfinder.com/v2",
+  "homepage": "http://localhost:3000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,6 +13,7 @@
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "http-proxy-middleware": "^2.0.6",
     "querystring": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
